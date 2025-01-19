@@ -2,16 +2,16 @@ import "./App.css";
 import { useState } from "react";
 
 const images = [
-  "/pics/alien.png",
-  "/pics/burger.png",
-  "/pics/car.png",
-  "/pics/cat.png",
-  "/pics/donut.png",
-  "/pics/flower.png",
-  "/pics/house.png",
-  "/pics/robot.png",
-  "/pics/rocket.png",
-  "/pics/soda.png",
+  "pics/alien.png",
+  "pics/burger.png",
+  "pics/car.png",
+  "pics/cat.png",
+  "pics/donut.png",
+  "pics/flower.png",
+  "pics/house.png",
+  "pics/robot.png",
+  "pics/rocket.png",
+  "pics/soda.png",
 ];
 
 function shuffleArray(array) {
