@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const images = [
   "pics/alien.png",
@@ -23,14 +23,12 @@ function shuffleArray(array) {
       shuffledArray[i],
     ];
   }
-  console.log("shuffledArray ", shuffledArray);
   return shuffledArray;
 }
 
 function generateShuffledCards() {
   const selectedImages = shuffleArray(images).slice(0, 8);
   const pairedImages = [...selectedImages, ...selectedImages];
-  console.log(selectedImages);
   return shuffleArray(pairedImages).map((image, index) => ({
     id: index,
     image,
@@ -43,6 +41,25 @@ function App() {
   const [cards, setCards] = useState(generateShuffledCards());
   const [flippedCards, setFlippedCards] = useState([]);
   const [tries, setTries] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const preloadImages = async () => {
+      const promises = images.map(
+        (src) =>
+          new Promise((resolve) => {
+            const img = new Image();
+            img.src = src;
+            img.onload = resolve;
+            img.onerror = resolve;
+          })
+      );
+      await Promise.all(promises);
+      setIsLoading(false);
+    };
+
+    preloadImages();
+  }, []);
 
   const handleCardClick = (id) => {
     const newCards = [...cards];
@@ -78,6 +95,10 @@ function App() {
       }, 1000);
     }
   };
+
+  if (isLoading) {
+    return <div className="loading">Loading...</div>;
+  }
 
   return (
     <div>
