@@ -23,12 +23,14 @@ function shuffleArray(array) {
       shuffledArray[i],
     ];
   }
+  console.log("shuffledArray ", shuffledArray);
   return shuffledArray;
 }
 
 function generateShuffledCards() {
   const selectedImages = shuffleArray(images).slice(0, 8);
   const pairedImages = [...selectedImages, ...selectedImages];
+  console.log(selectedImages);
   return shuffleArray(pairedImages).map((image, index) => ({
     id: index,
     image,
@@ -40,6 +42,7 @@ function generateShuffledCards() {
 function App() {
   const [cards, setCards] = useState(generateShuffledCards());
   const [flippedCards, setFlippedCards] = useState([]);
+  const [tries, setTries] = useState(0);
 
   const handleCardClick = (id) => {
     const newCards = [...cards];
@@ -54,6 +57,7 @@ function App() {
     setFlippedCards(newFlippedCards);
 
     if (newFlippedCards.length === 2) {
+      setTries((prevTries) => prevTries + 1);
       setTimeout(() => {
         if (newFlippedCards[0].image === newFlippedCards[1].image) {
           const updatedCards = newCards.map((card) =>
@@ -76,20 +80,25 @@ function App() {
   };
 
   return (
-    <div className="game-board">
-      {cards.map((card) => (
-        <div
-          key={card.id}
-          className={`card ${card.isFlipped ? "flipped" : ""}`}
-          onClick={() => handleCardClick(card.id)}
-        >
-          {card.isFlipped || card.isMatched ? (
-            <img src={card.image} alt="memory card" />
-          ) : (
-            <div className="card-back"></div>
-          )}
-        </div>
-      ))}
+    <div>
+      <div className="tries">
+        <p>Tries: {tries}</p>
+      </div>
+      <div className="game-board">
+        {cards.map((card) => (
+          <div
+            key={card.id}
+            className={`card ${card.isFlipped ? "flipped" : ""}`}
+            onClick={() => handleCardClick(card.id)}
+          >
+            {card.isFlipped || card.isMatched ? (
+              <img src={card.image} alt="memory card" />
+            ) : (
+              <div className="card-back"></div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
