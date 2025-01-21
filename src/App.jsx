@@ -45,6 +45,7 @@ function App() {
   const [flippedCards, setFlippedCards] = useState([]);
   const [tries, setTries] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     const preloadImages = async () => {
@@ -65,6 +66,7 @@ function App() {
   }, []);
 
   const handleCardClick = (id) => {
+    if (isDisabled) return;
     const newCards = [...cards];
     const cardIndex = newCards.findIndex((card) => card.id === id);
 
@@ -77,6 +79,7 @@ function App() {
     setFlippedCards(newFlippedCards);
 
     if (newFlippedCards.length === 2) {
+      setIsDisabled(true);
       setTries((prevTries) => prevTries + 1);
       setTimeout(() => {
         if (newFlippedCards[0].image === newFlippedCards[1].image) {
@@ -95,6 +98,7 @@ function App() {
           setCards(updatedCards);
         }
         setFlippedCards([]);
+        setIsDisabled(false);
       }, 1000);
     }
   };
