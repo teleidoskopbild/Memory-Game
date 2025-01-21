@@ -41,3 +41,8 @@
   text-align: center;
   margin-bottom: 20px;
 }
+
+.reset-button {
+  display: block;
+  margin: 1rem auto;
+}

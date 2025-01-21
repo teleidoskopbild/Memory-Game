@@ -12,6 +12,9 @@ const images = [
   "pics/robot.png",
   "pics/rocket.png",
   "pics/soda.png",
+  "pics/actionman.png",
+  "pics/dinosaur.png",
+  "pics/tamagotchi.png",
 ];
 
 function shuffleArray(array) {
@@ -96,12 +99,21 @@ function App() {
     }
   };
 
+  const handleReset = () => {
+    setCards(generateShuffledCards());
+    setFlippedCards([]);
+    setTries(0);
+  };
+
   if (isLoading) {
     return <div className="loading">Loading...</div>;
   }
 
   return (
     <div>
+      <button onClick={handleReset} className="reset-button">
+        Reset Game
+      </button>
       <div className="tries">
         <p>Tries: {tries}</p>
       </div>
