@@ -46,3 +46,43 @@
   display: block;
   margin: 1rem auto;
 }
+
+@media (max-width: 768px) {
+  .game-board {
+    grid-template-columns: repeat(4, 120px);
+  }
+  .card {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-board {
+    grid-template-columns: repeat(4, 90px);
+  }
+  .card {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 375px) {
+  .game-board {
+    grid-template-columns: repeat(4, 80px);
+  }
+  .card {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-board {
+    grid-template-columns: repeat(2, 75px);
+  }
+  .card {
+    width: 75px;
+    height: 75px;
+  }
+}
